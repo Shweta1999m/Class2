@@ -1,0 +1,47 @@
+import math
+
+class Point:
+  """docstring for Point"""
+  def __init__(self, x, y, z):
+    # super(Point, self).__init__()
+    self.x = x
+    self.y = y
+    self.z = z
+
+  def minus(self, other):
+    return Point(self.x - other.x, self.y - other.y, self.z - other.z)
+
+  def cross(self, other):
+    return Point( self.y * other.z - self.z * other.y
+                 , self.z * other.x - self.x * other.z
+                 , self.x * other.y - self.y * other.x)
+
+  def dot(self, other):
+    return self.x * other.x + self.y * other.y + self.z * other.z
+
+  def abs(self):
+    return math.sqrt(self.x * self.x + self.y * self.y + self.z * self.z)
+
+  def str(self):
+    return "(" + str(self.x) + ", " + str(self.y) + ", " + str(self.z) + ")"
+
+def get_Point():
+  lst = map(float, raw_input().strip().split())
+  return Point(lst[0], lst[1], lst[2])
+
+a = get_Point()
+b = get_Point()
+c = get_Point()
+d = get_Point()
+
+ab = a.minus(b)
+bc = b.minus(c)
+cd = c.minus(d)
+
+x = ab.cross(bc)
+y = bc.cross(cd)
+
+v = x.dot(y) / (x.abs() * y.abs())
+
+
+print "%.2f" % (math.acos(v) / math.acos(0) * 90,)
